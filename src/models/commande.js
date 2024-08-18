@@ -49,13 +49,12 @@ Commande.getAll = result => {
     });
 };
 
-Commande.updateById = (id_client, id_produit, commande, result) => {
+Commande.updateById = (id, commande, result) => {
     db.query(
-        "UPDATE commandes SET quantite = ?, date_commande = ?, statut_commande = ?, prix_total = ? WHERE id_client = ? AND id_produit = ?",
-        [commande.quantite, commande.date_commande, commande.statut_commande, commande.prix_total, id_client, id_produit],
+        "UPDATE commandes SET id_client = ?, id_produit = ?, quantite = ?, date_commande = ?, statut_commande = ?, prix_total = ? WHERE id = ?",
+        [commande.id_client, commande.id_produit, commande.quantite, commande.date_commande, commande.statut_commande, commande.prix_total, id],
         (err, res) => {
             if (err) {
-                console.log("erreur: ", err);
                 result(null, err);
                 return;
             }
@@ -63,11 +62,22 @@ Commande.updateById = (id_client, id_produit, commande, result) => {
                 result({ kind: "not_found" }, null);
                 return;
             }
-            console.log("commande mise à jour : ", { id_client: id_client, id_produit: id_produit, ...commande });
-            result(null, { id_client: id_client, id_produit: id_produit, ...commande });
+            const updatedCommande = {
+                id: id,
+                id_client: commande.id_client,
+                id_produit: commande.id_produit,
+                quantite: commande.quantite,
+                date_commande: commande.date_commande,
+                statut_commande: commande.statut_commande,
+                prix_total: commande.prix_total
+            };
+            console.log("commande mise à jour : ", updatedCommande);
+            result(null, updatedCommande);
         }
     );
 };
+
+
 
 Commande.remove = (id_client, id_produit, result) => {
     db.query("DELETE FROM commandes WHERE id_client = ? AND id_produit = ?", [id_client, id_produit], (err, res) => {

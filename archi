@@ -1,0 +1,27 @@
+MonAPI/
+|-- src/
+|   |-- config/
+|   |   └── db.config.js
+|   |-- controllers/
+|   |   └── commandesController.js
+|   |-- middleware/
+|   |   └── authMiddleware.js
+|   |-- models/
+|   |   └── commande.js
+|   |-- routes/
+|   |   └── commandesRoutes.js
+|   |-- tests/
+|   |   |-- config/
+|   |   |   └── db.config.test.js
+|   |   |-- controllers/
+|   |   |   └── commandesController.test.js
+|   |   |-- middleware/
+|   |   |   └── authMiddleware.test.js
+|   |   |-- models/
+|   |   |   └── commande.test.js
+|   |   |-- routes/
+|   |   |   └── commandesRoutes.test.js
+|   ├── .env
+|   ├── .gitignore
+|   ├── app.js
+|-- package.json
