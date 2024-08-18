@@ -1,21 +1,24 @@
+const request = require('supertest');
+const app = require('../app');
+
 let server;
 
 beforeAll(() => {
-  server = require('../app');
+  server = app.listen(); // Démarre le serveur sur un port aléatoire
 });
 
 afterAll((done) => {
-  server.close(done); // Fermez le serveur après les tests
+  server.close(done); // Ferme le serveur après les tests
 });
 
-describe('App Initialization', () => {
-  it('should respond with a welcome message at the root route', async () => {
+describe('Initialisation de l\'application', () => {
+  it('devrait répondre avec un message de bienvenue à la route racine', async () => {
     const res = await request(server).get('/');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({ message: "Bienvenue dans notre application API Commande" });
   });
 
-  it('should handle invalid routes', async () => {
+  it('devrait gérer les routes invalides', async () => {
     const res = await request(server).get('/invalid-route');
     expect(res.statusCode).toEqual(404);
   });

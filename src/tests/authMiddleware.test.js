@@ -2,7 +2,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const axios = require('axios');
 jest.mock('axios');
 
-describe('Auth Middleware', () => {
+describe('Middleware d\'authentification', () => {
   let req, res, next;
 
   beforeEach(() => {
@@ -16,13 +16,13 @@ describe('Auth Middleware', () => {
     next = jest.fn();
   });
 
-  it('should return 403 if no token is provided', () => {
+  it('devrait retourner 403 si aucun token n\'est fourni', () => {
     authMiddleware(req, res, next);
     expect(res.status).toHaveBeenCalledWith(403);
     expect(res.send).toHaveBeenCalledWith({ message: 'Aucun token fourni !' });
   });
 
-  it('should return 500 if token verification fails', async () => {
+  it('devrait retourner 500 si la vérification du token échoue', async () => {
     req.headers['x-access-token'] = 'invalid_token';
     axios.get.mockRejectedValue(new Error('Token error'));
 
@@ -34,7 +34,7 @@ describe('Auth Middleware', () => {
     });
   });
 
-  it('should call next if token is valid', async () => {
+  it('devrait appeler next si le token est valide', async () => {
     req.headers['x-access-token'] = 'valid_token';
     axios.get.mockResolvedValue({ status: 200 });
 

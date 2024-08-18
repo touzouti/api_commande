@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.65% </span>
+                <span class="strong">55.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/58</span>
+                <span class='fraction'>32/58</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.25% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/16</span>
+                <span class='fraction'>8/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.65% </span>
+                <span class="strong">55.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/58</span>
+                <span class='fraction'>32/58</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -173,11 +173,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -185,11 +185,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -243,11 +243,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -272,10 +272,10 @@ const Commande = <span class="fstat-no" title="function not covered" >fu</span>n
 &nbsp;
 Commande.create = (newCommande, result) =&gt; {
     db.query("INSERT INTO commandes SET ?", newCommande, (err, res) =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
-<span class="cstat-no" title="statement not covered" >            console.log("erreur: ", err);</span>
-<span class="cstat-no" title="statement not covered" >            result(err, null);</span>
-<span class="cstat-no" title="statement not covered" >            return;</span>
+        if (err) {
+            console.log("erreur: ", err);
+            result(err, null);
+            return;
         }
         console.log("commande créée : ", { id_commande: res.insertId, ...newCommande });
         result(null, { id_commande: res.insertId, ...newCommande });
@@ -284,10 +284,10 @@ Commande.create = (newCommande, result) =&gt; {
 &nbsp;
 Commande.findById = (id_client, id_produit, result) =&gt; {
     db.query(`SELECT * FROM commandes WHERE id_client = ? AND id_produit = ?`, [id_client, id_produit], (err, res) =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
-<span class="cstat-no" title="statement not covered" >            console.log("erreur: ", err);</span>
-<span class="cstat-no" title="statement not covered" >            result(err, null);</span>
-<span class="cstat-no" title="statement not covered" >            return;</span>
+        if (err) {
+            console.log("erreur: ", err);
+            result(err, null);
+            return;
         }
         <span class="missing-if-branch" title="else path not taken" >E</span>if (res.length) {
             console.log("commande trouvée : ", res[0]);
@@ -342,10 +342,10 @@ Commande.updateById = <span class="fstat-no" title="function not covered" >(i</s
 &nbsp;
 Commande.remove = (id_client, id_produit, result) =&gt; {
     db.query("DELETE FROM commandes WHERE id_client = ? AND id_produit = ?", [id_client, id_produit], (err, res) =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
-<span class="cstat-no" title="statement not covered" >            console.log("erreur: ", err);</span>
-<span class="cstat-no" title="statement not covered" >            result(null, err);</span>
-<span class="cstat-no" title="statement not covered" >            return;</span>
+        if (err) {
+            console.log("erreur: ", err);
+            result(null, err);
+            return;
         }
         <span class="missing-if-branch" title="if path not taken" >I</span>if (res.affectedRows == 0) {
 <span class="cstat-no" title="statement not covered" >            result({ kind: "not_found" }, null);</span>
@@ -364,7 +364,7 @@ module.exports = Commande;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-18T18:12:02.513Z
+                at 2024-08-18T19:05:06.524Z
             </div>
         <script src="../prettify.js"></script>
         <script>

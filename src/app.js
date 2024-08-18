@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 const commandesRoutes = require("./routes/commandesRoutes");
 app.use("/api/commandes", commandesRoutes);
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 0;
 app.listen(PORT, () => {
     console.log(`Le serveur tourne sur le port : http://localhost:${PORT}`);
 });
