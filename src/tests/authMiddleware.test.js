@@ -41,4 +41,16 @@ describe('Middleware d\'authentification', () => {
     await authMiddleware(req, res, next);
     expect(next).toHaveBeenCalled();
   });
+
+  it('devrait retourner 401 si le token est expiré', async () => {
+    req.headers['x-access-token'] = 'expired_token';
+    axios.get.mockResolvedValue({ status: 401 });
+  
+    await authMiddleware(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.send).toHaveBeenCalledWith({
+      message: 'Token expiré ou invalide',
+    });
+  });
+  
 });

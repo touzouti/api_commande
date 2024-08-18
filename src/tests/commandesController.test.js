@@ -52,4 +52,14 @@ describe('Contrôleur Commandes', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('message', 'La commande a été supprimée avec succès !');
   });
+
+  it('devrait retourner une erreur si la création échoue', async () => {
+    Commande.create.mockImplementation((commande, callback) => {
+      callback(new Error('Création échouée'), null);
+    });
+  
+    const res = await request(app).post('/api/commandes').send({});
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toHaveProperty('message', 'Création échouée');
+  });
 });
