@@ -1,8 +1,8 @@
 const Commande = require("../models/commande");
 
 exports.create = (req, res) => {
-    if (!req.body) {
-        res.status(400).send({
+    if (!req.body || !req.body.id_client || !req.body.id_produit) {
+        return res.status(400).send({
             message: "Le contenu ne peut pas être vide !"
         });
     }
@@ -25,6 +25,7 @@ exports.create = (req, res) => {
     });
 };
 
+
 exports.findAll = (req, res) => {
     Commande.getAll((err, data) => {
         if (err)
@@ -44,7 +45,7 @@ exports.findOne = (req, res) => {
                 });
             } else {
                 res.status(500).send({
-                    message: "Erreur de récupération de la commande avec l'id_client " + req.params.id_client + " et l'id_produit " + req.params.id_produit
+                    message: "Erreur de connexion à la base de données"
                 });
             }
         } else res.send(data);
@@ -56,6 +57,7 @@ exports.update = (req, res) => {
         res.status(400).send({
             message: "Le contenu ne peut pas être vide !"
         });
+        return;
     }
 
     Commande.updateById(
@@ -70,13 +72,14 @@ exports.update = (req, res) => {
                     });
                 } else {
                     res.status(500).send({
-                        message: "Erreur mise à jour de la commande avec l'id_client " + req.params.id_client + " et l'id_produit " + req.params.id_produit
+                        message: "Erreur de connexion à la base de données"
                     });
                 }
             } else res.send(data);
         }
     );
 };
+
 
 exports.delete = (req, res) => {
     Commande.remove(req.params.id_client, req.params.id_produit, (err, data) => {
@@ -87,7 +90,7 @@ exports.delete = (req, res) => {
                 });
             } else {
                 res.status(500).send({
-                    message: "Impossible de supprimer la commande avec l'id_client " + req.params.id_client + " et l'id_produit " + req.params.id_produit
+                    message: "Impossible de supprimer la commande"
                 });
             }
         } else res.send({ message: `La commande a été supprimée avec succès !` });
