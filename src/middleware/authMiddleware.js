@@ -16,16 +16,13 @@ const authMiddleware = async (req, res, next) => {
         });
 
         if (response.status === 200) {
-            // Si le token est valide, passer à l'étape suivante
             next();
         } else {
-            // Si l'API retourne une erreur, renvoyer une réponse d'erreur
             res.status(response.status).send({
                 message: 'Échec de l\'authentification du token !'
             });
         }
     } catch (error) {
-        // En cas d'erreur dans la requête, retourner une erreur 500
         res.status(500).send({
             message: 'Un problème est survenu lors de la vérification du token !',
             error: error.message

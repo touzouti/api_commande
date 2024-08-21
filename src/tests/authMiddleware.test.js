@@ -42,15 +42,22 @@ describe('Middleware d\'authentification', () => {
     expect(next).toHaveBeenCalled();
   });
 
-  it('devrait retourner 401 si le token est expiré', async () => {
+  it('devrait retourner 401 si le token est expiré ou invalide', async () => {
     req.headers['x-access-token'] = 'expired_token';
     axios.get.mockResolvedValue({ status: 401 });
   
     await authMiddleware(req, res, next);
     expect(res.status).toHaveBeenCalledWith(401);
     expect(res.send).toHaveBeenCalledWith({
-      message: 'Token expiré ou invalide',
+      message: 'Échec de l\'authentification du token !'
     });
   });
-  
+
+  it('devrait retourner 403 si le token est présent mais vide', () => {
+    req.headers['x-access-token'] = '';
+    authMiddleware(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(403);
+    expect(res.send).toHaveBeenCalledWith({ message: 'Aucun token fourni !' });
+  });
+
 });
