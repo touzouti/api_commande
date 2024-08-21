@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
 
-// Import du middleware d'authentification
 const authMiddleware = require('./middleware/authMiddleware'); 
 
 dotenv.config();
@@ -22,7 +21,7 @@ app.get("/", (req, res) => {
 });
 
 const commandesRoutes = require("./routes/commandesRoutes");
-app.use("/api/commandes", commandesRoutes);
+app.use("/api/order", commandesRoutes);
 
 const PORT = process.env.PORT || 0;
 app.listen(PORT, () => {
