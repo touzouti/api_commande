@@ -3,7 +3,7 @@
 
 ## Introduction
 
-Cette API permet la gestion des commandes, incluant la création, la lecture, la mise à jour et la suppression de commandes. L'API utilise JWT pour la sécurisation des routes sensibles.
+Cette API permet la gestion des order, incluant la création, la lecture, la mise à jour et la suppression de order. L'API utilise JWT pour la sécurisation des routes sensibles.
 
 ### Base URL
 
@@ -15,7 +15,7 @@ http://localhost:3000/api
 
 ### 1. Créer une commande
 
-**POST `/commandes`**
+**POST `/order`**
 
 **Description :** Crée une nouvelle commande dans la base de données.
 
@@ -54,11 +54,11 @@ http://localhost:3000/api
 - `400 Bad Request` : Requête mal formée ou données manquantes.
 - `500 Internal Server Error` : Erreur lors de la création de la commande.
 
-### 2. Récupérer toutes les commandes
+### 2. Récupérer toutes les order
 
-**GET `/commandes`**
+**GET `/order`**
 
-**Description :** Récupère la liste de toutes les commandes.
+**Description :** Récupère la liste de toutes les order.
 
 **Headers :** `x-access-token` : Token JWT pour l'authentification.
 
@@ -83,11 +83,11 @@ http://localhost:3000/api
 **Codes d'erreur :**
 
 - `401 Unauthorized` : Token JWT manquant ou invalide.
-- `500 Internal Server Error` : Erreur lors de la récupération des commandes.
+- `500 Internal Server Error` : Erreur lors de la récupération des order.
 
 ### 3. Récupérer une commande par ID
 
-**GET `/commandes/:id_client/:id_produit`**
+**GET `/order/:id_client/:id_produit`**
 
 **Description :** Récupère une commande spécifique en utilisant son ID.
 
@@ -118,7 +118,7 @@ http://localhost:3000/api
 
 ### 4. Mettre à jour une commande
 
-**PUT `/commandes/:id_client/:id_produit`**
+**PUT `/order/:id`**
 
 **Description :** Met à jour les informations d'une commande existante.
 
@@ -130,12 +130,13 @@ http://localhost:3000/api
 
 ```json
 {
-  "produit_id": "int",
-  "quantite": "int",
-  "date_commande": "date",
-  "client_id": "int",
-  "adresse_livraison": "string"
+    "id_client": "int",
+    "id_produit": "int",
+    "quantite": "int",
+    "date_commande": "date",
+    "prix_total": "float"
 }
+
 ```
 
 **Réponse :**
@@ -162,7 +163,7 @@ http://localhost:3000/api
 
 ### 5. Supprimer une commande
 
-**DELETE `/commandes/:id_client/:id_produit`**
+**DELETE `/order/:id_client/:id_produit`**
 
 **Description :** Supprime une commande de la base de données.
 
@@ -188,4 +189,4 @@ http://localhost:3000/api
 
 ## Sécurité
 
-Certaines routes de l'API (comme la récupération, la mise à jour, et la suppression des commandes) sont protégées par des tokens JWT. Assurez-vous d'inclure le token d'accès dans les en-têtes de requête sous `x-access-token` pour ces routes.
+Certaines routes de l'API (comme la récupération, la mise à jour, et la suppression des order) sont protégées par des tokens JWT. Assurez-vous d'inclure le token d'accès dans les en-têtes de requête sous `x-access-token` pour ces routes.
