@@ -1,6 +1,3 @@
-module.exports.publishToQueue = jest.fn();
-module.exports.consumeFromQueue = jest.fn();
-
 const amqp = require('amqplib/callback_api');
 
 // Fonction pour publier un message dans une queue RabbitMQ
