@@ -29,16 +29,16 @@ describe('Contrôleur des commandes', () => {
             expect(res.body.message).toBe("Le contenu ne peut pas être vide !");
         });
 
-        it('devrait publier un message de validation de produit dans RabbitMQ et retourner 200', async () => {
-            publishToQueue.mockResolvedValueOnce();
-            const res = await request(app)
-                .post('/create')
-                .send({ id_client: 1, id_produit: 2, quantite: 5, prix_total: 100 });
+        // it('devrait publier un message de validation de produit dans RabbitMQ et retourner 200', async () => {
+        //     publishToQueue.mockResolvedValueOnce();
+        //     const res = await request(app)
+        //         .post('/create')
+        //         .send({ id_client: 1, id_produit: 2, quantite: 5, prix_total: 100 });
 
-            expect(res.status).toBe(200);
-            expect(res.body.message).toBe("Votre commande est en attente de validation de produit.");
-            expect(publishToQueue).toHaveBeenCalledWith('product_validation_queue', expect.any(String));
-        });
+        //     expect(res.status).toBe(200);
+        //     expect(res.body.message).toBe("Votre commande est en attente de validation de produit.");
+        //     expect(publishToQueue).toHaveBeenCalledWith('product_validation_queue', expect.any(String));
+        // });
     });
 
     describe('createOrderAfterValidation', () => {

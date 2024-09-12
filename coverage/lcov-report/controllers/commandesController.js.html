@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.79% </span>
+                <span class="strong">79.24% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/53</span>
+                <span class='fraction'>42/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.31% </span>
+                <span class="strong">72.41% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>23/29</span>
+                <span class='fraction'>21/29</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.79% </span>
+                <span class="strong">79.24% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/53</span>
+                <span class='fraction'>42/53</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -212,26 +212,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -356,14 +356,14 @@ const { publishToQueue, consumeFromQueue } = require('../config/rabbitmq');
 &nbsp;
 // Fonction pour publier la demande de validation du produit
 exports.create = (req, res) =&gt; {
-    if (!req.body || !req.body.id_client || !req.body.id_produit) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!req.body || !req.body.id_client || <span class="branch-2 cbranch-no" title="branch not covered" >!req.body.id_produit)</span> {
         return res.status(400).send({
             message: "Le contenu ne peut pas être vide !"
         });
     }
 &nbsp;
     // Préparer le message de validation du produit
-    const validationMessage = {
+    const validationMessage = <span class="cstat-no" title="statement not covered" >{</span>
         product_id: req.body.id_produit,
         requested_quantity: req.body.quantite,
         client_id: req.body.id_client,
@@ -371,11 +371,11 @@ exports.create = (req, res) =&gt; {
     };
 &nbsp;
     // Envoyer la demande de validation du produit à RabbitMQ
-    publishToQueue('product_validation_queue', JSON.stringify(validationMessage));
-    console.log('Demande de validation de produit envoyée:', validationMessage);
+<span class="cstat-no" title="statement not covered" >    publishToQueue('product_validation_queue', JSON.stringify(validationMessage));</span>
+<span class="cstat-no" title="statement not covered" >    console.log('Demande de validation de produit envoyée:', validationMessage);</span>
 &nbsp;
     // Répondre immédiatement au client que la demande est en cours
-    return res.status(200).send({
+<span class="cstat-no" title="statement not covered" >    return res.status(200).send({</span>
         message: "Votre commande est en attente de validation de produit.",
         status: "200"
     });
@@ -502,7 +502,7 @@ exports.delete = (req, res) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-11T21:25:40.340Z
+                at 2024-09-12T07:19:17.792Z
             </div>
         <script src="../prettify.js"></script>
         <script>
