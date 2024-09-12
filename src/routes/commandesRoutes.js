@@ -9,7 +9,7 @@ router.post("/", commandesController.create);
 router.get("/", commandesController.findAll);
 
 // Route pour récupérer une commande par id_client et id_produit
-router.get("/:id_client/:id_produit", commandesController.findOne);
+router.get("/:id_commande", commandesController.findOne);
 
 // Route pour mettre à jour une commande par id_commande
 router.put("/:id_commande", commandesController.update);

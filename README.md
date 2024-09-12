@@ -35,7 +35,7 @@ http://localhost:3000/api
 
 **Réponse :**
 
-- **Code :** `201 Created`
+- **Code :** `200 Created`
 - **Corps de la réponse :**
 
 ```json
@@ -87,7 +87,7 @@ http://localhost:3000/api
 
 ### 3. Récupérer une commande par ID
 
-**GET `/order/:id_client/:id_produit`**
+**GET `/order/:id`**
 
 **Description :** Récupère une commande spécifique en utilisant son ID.
 
@@ -163,7 +163,7 @@ http://localhost:3000/api
 
 ### 5. Supprimer une commande
 
-**DELETE `/order/:id_client/:id_produit`**
+**DELETE `/order/:commandeId`**
 
 **Description :** Supprime une commande de la base de données.
 
