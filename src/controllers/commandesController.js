@@ -84,11 +84,11 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    Commande.findById(req.params.id_client, req.params.id_produit, (err, data) => {
+    Commande.findById(req.params.id_commande, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Commande non trouvée avec l'id_client ${req.params.id_client} et l'id_produit ${req.params.id_produit}.`
+                    message: `Commande non trouvée avec l'id ${req.params.id_commande}`
                 });
             } else {
                 res.status(500).send({
@@ -125,6 +125,7 @@ exports.update = (req, res) => {
             } else res.send(data);  
         }
     );
+    
 };
 
 exports.delete = (req, res) => {

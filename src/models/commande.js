@@ -21,21 +21,21 @@ Commande.create = (newCommande, result) => {
     });
 };
 
-Commande.findById = (id_client, id_produit, result) => {
-    db.query(`SELECT * FROM commandes WHERE id_client = ? AND id_produit = ?`, [id_client, id_produit], (err, res) => {
+Commande.findById = (id_commande, result) => {
+    db.query("SELECT * FROM commandes WHERE id = ?", [id_commande], (err, res) => {
         if (err) {
-            console.log("erreur: ", err);
-            result(err, null);
-            return;
+            console.log("Erreur: ", err);
+            return result(err, null); 
         }
         if (res.length) {
-            console.log("commande trouvée : ", res[0]);
-            result(null, res[0]);
-            return;
+            console.log("Commande trouvée : ", res[0]);
+            return result(null, res[0]);
         }
-        result({ kind: "not_found" }, null);
+        // Si aucune commande n'est trouvée
+        return result({ kind: "not_found" }, null);
     });
 };
+
 
 Commande.getAll = result => {
     db.query("SELECT * FROM commandes", (err, res) => {

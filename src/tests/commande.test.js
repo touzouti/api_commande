@@ -51,48 +51,28 @@ describe('Commande Model', () => {
     });
 
     describe('findById', () => {
-        it('devrait trouver une commande par id_client et id_produit', () => {
-            const id_client = 1;
-            const id_produit = 2;
-            const expectedCommande = { id: 1, id_client, id_produit };
+        it('devrait trouver une commande par id_commande', () => {
+            const id_commande = 1;
+            const expectedCommande = { id: 1, };
 
             db.query.mockImplementation((query, values, callback) => {
                 callback(null, [expectedCommande]);
             });
 
             const resultCallback = jest.fn();
-            Commande.findById(id_client, id_produit, resultCallback);
+            Commande.findById(id_commande, resultCallback);
 
             expect(db.query).toHaveBeenCalledWith(
-                "SELECT * FROM commandes WHERE id_client = ? AND id_produit = ?",
-                [id_client, id_produit],
+                "SELECT * FROM commandes WHERE id = ?",
+                [id_commande],
                 expect.any(Function)
             );
             expect(resultCallback).toHaveBeenCalledWith(null, expectedCommande);
         });
 
-        it('devrait retourner une erreur si la commande n\'est pas trouvée', () => {
-            const id_client = 1;
-            const id_produit = 2;
-
-            db.query.mockImplementation((query, values, callback) => {
-                callback(null, []);
-            });
-
-            const resultCallback = jest.fn();
-            Commande.findById(id_client, id_produit, resultCallback);
-
-            expect(db.query).toHaveBeenCalledWith(
-                "SELECT * FROM commandes WHERE id_client = ? AND id_produit = ?",
-                [id_client, id_produit],
-                expect.any(Function)
-            );
-            expect(resultCallback).toHaveBeenCalledWith({ kind: 'not_found' }, null);
-        });
 
         it('devrait gérer une erreur lors de la recherche de la commande', () => {
-            const id_client = 1;
-            const id_produit = 2;
+            const id_commande = 1;
             const errorMessage = 'Erreur lors de la requête';
 
             db.query.mockImplementation((query, values, callback) => {
@@ -100,11 +80,11 @@ describe('Commande Model', () => {
             });
 
             const resultCallback = jest.fn();
-            Commande.findById(id_client, id_produit, resultCallback);
+            Commande.findById(id_commande, resultCallback);
 
             expect(db.query).toHaveBeenCalledWith(
-                "SELECT * FROM commandes WHERE id_client = ? AND id_produit = ?",
-                [id_client, id_produit],
+                "SELECT * FROM commandes WHERE id = ?",
+                [id_commande],
                 expect.any(Function)
             );
             expect(resultCallback).toHaveBeenCalledWith(expect.any(Error), null);
