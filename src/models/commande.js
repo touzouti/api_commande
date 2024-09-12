@@ -5,7 +5,7 @@ const Commande = function(commande) {
     this.id_produit = commande.id_produit;
     this.quantite = commande.quantite;
     this.date_commande = commande.date_commande;
-    this.statut_commande = commande.statut_commande;
+    // this.statut_commande = commande.statut_commande;
     this.prix_total = commande.prix_total;
 };
 
@@ -16,8 +16,8 @@ Commande.create = (newCommande, result) => {
             result(err, null);
             return;
         }
-        console.log("commande créée : ", { id_commande: res.insertId, ...newCommande });
-        result(null, { id_commande: res.insertId, ...newCommande });
+        console.log("commande créée : ", { id: res.insertId, ...newCommande });
+        result(null, { id: res.insertId, ...newCommande });
     });
 };
 
@@ -58,20 +58,21 @@ Commande.updateById = (id, commande, result) => {
                 result(null, err);
                 return;
             }
+
             if (res.affectedRows == 0) {
                 result({ kind: "not_found" }, null);
                 return;
             }
+
             const updatedCommande = {
                 id: id,
                 id_client: commande.id_client,
                 id_produit: commande.id_produit,
                 quantite: commande.quantite,
                 date_commande: commande.date_commande,
-                statut_commande: commande.statut_commande,
                 prix_total: commande.prix_total
             };
-            console.log("commande mise à jour : ", updatedCommande);
+            console.log("Commande mise à jour : ", updatedCommande);
             result(null, updatedCommande);
         }
     );
@@ -79,18 +80,20 @@ Commande.updateById = (id, commande, result) => {
 
 
 
-Commande.remove = (id_client, id_produit, result) => {
-    db.query("DELETE FROM commandes WHERE id_client = ? AND id_produit = ?", [id_client, id_produit], (err, res) => {
+Commande.remove = (id_commande, result) => {
+    db.query("DELETE FROM commandes WHERE id = ?", [id_commande], (err, res) => {
         if (err) {
             console.log("erreur: ", err);
             result(null, err);
             return;
         }
+
         if (res.affectedRows == 0) {
             result({ kind: "not_found" }, null);
             return;
         }
-        console.log("commande supprimée avec l'id_client : ", id_client, " et id_produit : ", id_produit);
+
+        console.log("Commande supprimée avec l'id_commande : ", id_commande);
         result(null, res);
     });
 };
