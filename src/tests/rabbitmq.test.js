@@ -21,7 +21,7 @@ describe('RabbitMQ Utility Functions', () => {
 
             publishToQueue('testQueue', 'testMessage');
 
-            expect(amqp.connect).toHaveBeenCalledWith('amqp://localhost', expect.any(Function));
+            expect(amqp.connect).toHaveBeenCalledWith('amqp://host.docker.internal:5672', expect.any(Function));
             expect(mockConnection.createChannel).toHaveBeenCalledWith(expect.any(Function));
             expect(mockChannel.assertQueue).toHaveBeenCalledWith('testQueue', { durable: true }, expect.any(Function));
             expect(mockChannel.sendToQueue).toHaveBeenCalledWith('testQueue', Buffer.from('testMessage'), { persistent: true });
@@ -99,7 +99,7 @@ describe('RabbitMQ Utility Functions', () => {
             const callback = jest.fn();
             consumeFromQueue('testQueue', callback);
 
-            expect(amqp.connect).toHaveBeenCalledWith('amqp://localhost', expect.any(Function));
+            expect(amqp.connect).toHaveBeenCalledWith('amqp://host.docker.internal:5672', expect.any(Function));
             expect(mockConnection.createChannel).toHaveBeenCalledWith(expect.any(Function));
             expect(mockChannel.assertQueue).toHaveBeenCalledWith('testQueue', { durable: true }, expect.any(Function));
             expect(mockChannel.consume).toHaveBeenCalledWith('testQueue', expect.any(Function), { noAck: false });
