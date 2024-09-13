@@ -1,8 +1,11 @@
 const amqp = require('amqplib/callback_api');
 
+const RABBITMQ_URL = 'amqp://host.docker.internal:5672'; 
+// const RABBITMQ_URL = 'amqp://localhost';
+
 // Fonction pour publier un message dans une queue RabbitMQ
 function publishToQueue(queueName, message) {
-    amqp.connect('amqp://localhost', (err, connection) => {
+    amqp.connect(RABBITMQ_URL, (err, connection) => {
         if (err) {
             console.error("Erreur de connexion à RabbitMQ : ", err);
             return;
@@ -23,7 +26,7 @@ function publishToQueue(queueName, message) {
 
                 // Publier le message dans la queue
                 channel.sendToQueue(queueName, Buffer.from(message), { persistent: true });
-                console.log(`Message envoyé à la queue ${queueName}: ${message}`);
+                // console.log(`Message envoyé à la queue ${queueName}: ${message}`);
             });
         });
     });
@@ -31,7 +34,7 @@ function publishToQueue(queueName, message) {
 
 // Fonction pour consommer des messages depuis une queue RabbitMQ
 function consumeFromQueue(queueName, callback) {
-    amqp.connect('amqp://localhost', (err, connection) => {
+    amqp.connect(RABBITMQ_URL, (err, connection) => {
         if (err) {
             console.error("Erreur de connexion à RabbitMQ : ", err);
             return;
@@ -53,9 +56,9 @@ function consumeFromQueue(queueName, callback) {
                 // Consommer les messages de la queue
                 channel.consume(queueName, (msg) => {
                     if (msg !== null) {
-                        console.log(`Message reçu de la queue ${queueName}: ${msg.content.toString()}`);
+                        // console.log(`Message reçu de la queue ${queueName}: ${msg.content.toString()}`);
                         callback(msg.content.toString());
-                        channel.ack(msg); // Marquer le message comme traité
+                        channel.ack(msg); 
                     }
                 }, {
                     noAck: false

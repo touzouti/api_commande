@@ -22,14 +22,14 @@ app.listen(PORT, () => {
 });
 
 // Consommer les réponses de validation de produit
-consumeFromQueue('product_validation_response_queue', (message) => {
-    const productValidation = JSON.parse(message);
-    console.log('Validation du produit reçue:', productValidation);
+// consumeFromQueue('product_validation_response_queue', (message) => {
+//     const productValidation = JSON.parse(message);
+//     console.log('Validation du produit reçue:', productValidation);
 
-    // Uniformiser le statut avec 'available'
-    if (productValidation.status === 'available') {
-        console.log(`Le produit ${productValidation.product_id} est disponible.`);
-    } else {
-        console.log(`Le produit ${productValidation.product_id} est en rupture de stock.`);
-    }
-});
+//     // Uniformiser le statut avec 'available'
+//     if (productValidation.status === 'available') {
+//         console.log(`Le produit ${productValidation.product_id} est disponible.`);
+//     } else {
+//         console.log(`Le produit ${productValidation.product_id} est en rupture de stock.`);
+//     }
+// });

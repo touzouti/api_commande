@@ -16,7 +16,7 @@ Commande.create = (newCommande, result) => {
             result(err, null);
             return;
         }
-        console.log("commande créée : ", { id: res.insertId, ...newCommande });
+        // console.log("commande créée : ", { id: res.insertId, ...newCommande });
         result(null, { id: res.insertId, ...newCommande });
     });
 };

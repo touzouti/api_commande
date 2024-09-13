@@ -42,29 +42,22 @@ exports.createOrderAfterValidation = (responseMessage) => {
             prix_total: response.prix_total
         });
 
-        // Enregistrer la commande dans la base de données
         Commande.create(commande, (err, data) => {
             if (err) {
                 console.error("Erreur lors de la création de la commande : ", err);
             } else {
-                // Publier l'événement de création de commande dans RabbitMQ
                 publishToQueue('order_creation_queue', JSON.stringify(data));
-                    // Répondre immédiatement au client que la demande est en cours
                 console.log("Commande créée avec succès : ", data);
-
-                
-
             }
         });
 
     } else if (response.status === 'unavailable') {
         console.log(`Le produit ${response.product_id} est en rupture de stock.`);
-
-    }
-    else {
-        console.log(`Le produit ${response.product_id} n'existe pas`);
+    } else if (response.status === 'not_found') {
+        console.log(`Le produit ${response.product_id} n'existe pas.`);
     }
 };
+
 
 // Consommer les messages de validation du produit
 consumeFromQueue('product_validation_response_queue', (message) => {
