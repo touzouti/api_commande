@@ -72,7 +72,7 @@ describe('Contrôleur des commandes', () => {
             commandesController.createOrderAfterValidation(mockMessage);
 
             expect(Commande.create).not.toHaveBeenCalled();
-            expect(console.log).toHaveBeenCalledWith(`Le produit 2 n'existe pas`);
+            expect(console.log).toHaveBeenCalledWith(`Le produit 2 n'existe pas.`);
         });
     });
 
